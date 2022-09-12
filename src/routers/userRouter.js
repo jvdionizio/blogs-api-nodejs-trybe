@@ -6,5 +6,6 @@ const tokenValidade = require('../middlewares/tokenValidate');
 
 usersRouter.post('/', userController.createUser);
 usersRouter.get('/', tokenValidade, userController.getAllUsers);
+usersRouter.get('/:id', tokenValidade, userController.getUserById);
 
 module.exports = usersRouter;

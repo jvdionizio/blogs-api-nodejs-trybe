@@ -25,8 +25,15 @@ const getAllUsers = async () => {
   return listUser;
 };
 
+const getUserById = async (id) => {
+  const userById = await db.User.findOne({ where: { id }, attributes: attributesQUERY });
+
+  return userById;
+};
+
 module.exports = {
     createUser,
     getUser,
     getAllUsers,
+    getUserById,
 };
