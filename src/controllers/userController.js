@@ -29,6 +29,13 @@ const tokenService = require('../services/tokenService.js');
     return res.status(201).json({ token });
   };
 
+  const getAllUsers = async (_req, res) => {
+    const usersList = await userService.getAllUsers();
+  
+    return res.status(200).json(usersList);
+  };
+
   module.exports = {
     createUser,
+    getAllUsers,
   }; 
