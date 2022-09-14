@@ -1,6 +1,7 @@
 const userService = require('../services/userService.js');
 const userValidate = require('../middlewares/userValidate');
 const tokenService = require('../services/tokenService.js');
+const userVerification = require('../services/userVerificationService.js');
 
   const createUser = async (req, res) => {
     const { displayName, email, password, image } = req.body;
@@ -45,8 +46,23 @@ const tokenService = require('../services/tokenService.js');
     return res.status(200).json(user);
   };
 
+  const deleteUser = async (req, res) => {  
+    const token = req.headers.authorization;
+    const userId = await userVerification(token);
+
+    const userSearch = await userService.deleteUser(userId);
+    if (userSearch === 'user not found') {
+      return res.status(404).json({
+       message: 'User not found', 
+      });
+    }
+    
+    return res.status(204).end();
+  };
+
   module.exports = {
     createUser,
     getAllUsers,
     getUserById,
+    deleteUser,
   }; 

@@ -31,9 +31,18 @@ const getUserById = async (id) => {
   return userById;
 };
 
+const deleteUser = async (id) => {
+  const user = await db.User.findByPk(id);
+
+  if (!user) return 'user not found';
+
+  await db.User.destroy({ where: { id } });
+};
+
 module.exports = {
     createUser,
     getUser,
     getAllUsers,
     getUserById,
+    deleteUser,
 };
